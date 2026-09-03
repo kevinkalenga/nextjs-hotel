@@ -83,7 +83,7 @@ const roomSchema: Schema = new Schema({
         country: String
 
     },
-    gustCapacity: {
+    guestCapacity: {
         type: Number,
         required: [true, "Please enter room guest capacity"],
     },
@@ -161,7 +161,8 @@ const roomSchema: Schema = new Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        required: false
+        //required: true
     },
     createdAt: {
         type: Date,
@@ -169,4 +170,4 @@ const roomSchema: Schema = new Schema({
     }
 })
 
-export default mongoose.models.Room || mongoose.model<IRoom>("Room", roomSchema)
+export default mongoose.models.Room || mongoose.model<IRoom>("Room", roomSchema);
