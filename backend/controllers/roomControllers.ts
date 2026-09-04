@@ -23,3 +23,24 @@ export const newRoom = async (req: NextRequest) => {
     room,
   })
 }
+
+export const getRoomDetails = async (req:NextRequest, {params}: {params: Promise<{id: string}>}) => {
+    const { id } = await params;
+
+  console.log("ID reçu :", id);
+   const room = await Room.findById(id);
+
+  if(!room) {
+    return NextResponse.json({
+      success: false,
+      message: "Room not found"
+    },
+    {status: 404}
+   )
+  }
+
+  return NextResponse.json({
+    success: true,
+    room,
+  })
+}
