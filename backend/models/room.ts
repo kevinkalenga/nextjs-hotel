@@ -1,11 +1,11 @@
 import mongoose, {Schema, Document} from "mongoose";
 
-export interface IReview extends Document {
+export interface IReview {
   user: mongoose.Schema.Types.ObjectId;
   rating: number;
   comment: string;
 }
-export interface IImage extends Document {
+export interface IImage {
     public_id: string;
     url: string;
 }
@@ -23,25 +23,25 @@ export interface ILocation {
 
 }
 
-export interface IRoom extends Document {
+export interface IRoom {
     name: string;
     description: string;
     pricePerNight: number;
     address: string;
-    location: ILocation;
+    location?: ILocation;
     guestCapacity: number;
     isInternet: boolean;
     isBreakfast: boolean;
     isAirConditioned: boolean;
     isPetsAllowed: boolean;
     isRoomCleaning: boolean;
-    ratings: number;
-    numOfReviews: number;
-    image: IImage[];
+    ratings?: number;
+    numOfReviews?: number;
+    images: IImage[];
     category: string;
     reviews: IReview[];
-    user: mongoose.Schema.Types.ObjectId;
-    createdAt: Date;
+    user?: mongoose.Schema.Types.ObjectId;
+    createdAt?: Date;
 
 }
 
