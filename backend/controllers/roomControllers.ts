@@ -80,3 +80,38 @@ export const updateRoom = async (
   });
 };
 
+
+// Delete room details => /api/admin/rooms/:id
+
+
+export const deleteRoom = async (
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) => {
+  const { id } = await params;
+
+  const room = await Room.findById(id);
+
+  if (!room) {
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Room not found",
+      },
+      { status: 404 }
+    );
+  }
+
+  // Todo - Delete images associated with the room
+
+  await Room.findByIdAndDelete(id);
+
+  return NextResponse.json({
+    success: true,
+    message: "Room deleted successfully",
+  });
+};
+
+
+
+
