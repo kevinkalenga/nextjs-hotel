@@ -30,6 +30,7 @@ export interface IRoom {
     address: string;
     location?: ILocation;
     guestCapacity: number;
+    numOfBeds: number;
     isInternet: boolean;
     isBreakfast: boolean;
     isAirConditioned: boolean;
