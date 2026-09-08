@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import Room from "../models/room"
 import ErrorHandler from "../utils/errorHandler";
+import { catchAsyncErrors } from "../middlewares/catchAsyncErrors";
 
 // Get all rooms => /api/rooms
-export const allRooms = async (req: NextRequest) => {
+export const allRooms =  catchAsyncErrors(async (req: NextRequest) => {
    const resPerPage: number = 8
    const rooms = await Room.find();
 
@@ -12,10 +13,10 @@ export const allRooms = async (req: NextRequest) => {
      resPerPage,
      rooms
    })
-}
+})
 
 // Create new room  => /api/admin/rooms
-export const newRoom = async (req: NextRequest) => {
+export const newRoom =  catchAsyncErrors(async (req: NextRequest) => {
   const body = await req.json()
 
   const room = await Room.create(body)
@@ -24,19 +25,19 @@ export const newRoom = async (req: NextRequest) => {
     success: true,
     room,
   })
-}
+})
 
 // Get room details => /api/rooms/:id
-export const getRoomDetails = async (req:NextRequest, {params}: {params: Promise<{id: string}>}) => {
+export const getRoomDetails = catchAsyncErrors(async (req:NextRequest, {params}: {params: Promise<{id: string}>}) => {
      const { id } = await params;
 
       console.log("ID reçu :", id);
     
-   try {
+   
      
        const room = await Room.findById(id);
 
-       throw new ErrorHandler("Hello", 400);
+      //throw new ErrorHandler("Hello", 404);
 
       if(!room) {
         return NextResponse.json({
@@ -51,20 +52,12 @@ export const getRoomDetails = async (req:NextRequest, {params}: {params: Promise
         success: true,
         room,
       })
-   } catch(error: any) {
-    
-      return NextResponse.json(
-        {
-          message: error.message
-        },
-        {status: error.statusCode}
-      )
-   }
-}
+
+})
 
 // Update room details => /api/admin/rooms/:id
 
-export const updateRoom = async (
+export const updateRoom =  catchAsyncErrors(async (
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) => {
@@ -93,13 +86,13 @@ export const updateRoom = async (
     success: true,
     room,
   });
-};
+});
 
 
 // Delete room details => /api/admin/rooms/:id
 
 
-export const deleteRoom = async (
+export const deleteRoom =  catchAsyncErrors(async (
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) => {
@@ -125,7 +118,7 @@ export const deleteRoom = async (
     success: true,
     message: "Room deleted successfully",
   });
-};
+});
 
 
 
