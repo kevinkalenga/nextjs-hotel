@@ -40,12 +40,7 @@ export const getRoomDetails = catchAsyncErrors(async (req:NextRequest, {params}:
       //throw new ErrorHandler("Hello", 404);
 
       if(!room) {
-        return NextResponse.json({
-          success: false,
-          message: "Room not found"
-        },
-        {status: 404}
-      )
+        throw new ErrorHandler('Room not found', 404)
       }
 
       return NextResponse.json({
@@ -68,13 +63,7 @@ export const updateRoom =  catchAsyncErrors(async (
   let room = await Room.findById(id);
 
   if (!room) {
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Room not found",
-      },
-      { status: 404 }
-    );
+     throw new ErrorHandler('Room not found', 404)
   }
 
   room = await Room.findByIdAndUpdate(id, body, {
@@ -101,13 +90,7 @@ export const deleteRoom =  catchAsyncErrors(async (
   const room = await Room.findById(id);
 
   if (!room) {
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Room not found",
-      },
-      { status: 404 }
-    );
+    throw new ErrorHandler('Room not found', 404)
   }
 
   // Todo - Delete images associated with the room
