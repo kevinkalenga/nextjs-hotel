@@ -6,8 +6,8 @@ import APIFilters from "../utils/apiFilters";
 
 // Get all rooms => /api/rooms
 export const allRooms =  catchAsyncErrors(async (req: NextRequest) => {
-   const resPerPage: number = 8
-  //const rooms = await Room.find();
+   const resPerPage: number = 4
+  
    //get the value for the url
    const {searchParams} = new URL(req.url)
 
@@ -22,13 +22,24 @@ export const allRooms =  catchAsyncErrors(async (req: NextRequest) => {
    })
 
   //console.log(queryStr)
+  
+  // to get all the rooms
+  const roomsCount: number = await Room.countDocuments()
 
    const apiFilters = new APIFilters(Room, queryStr).search().filter()
 
-   const rooms: IRoom[] = await apiFilters.query
+   let rooms: IRoom[] = await apiFilters.query
+    // room count we will need in the frontend
+    const filteredRoomsCount: number = rooms.length
+    // the pagination
+    apiFilters.pagination(resPerPage)
+
+    rooms = await apiFilters.query.clone()
 
    return NextResponse.json({
      success: true,
+     roomsCount,
+     filteredRoomsCount,
      resPerPage,
      rooms
    })
