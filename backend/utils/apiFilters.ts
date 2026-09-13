@@ -20,6 +20,20 @@ class APIFilters {
       
       return this;
     }
+
+    filter(): APIFilters {
+      const queryCopy = {...this.queryStr}
+      console.log('queryCopy', queryCopy)
+      // wen dont wanna andle location iin the search function again
+      const removeFields = ["location"]
+      removeFields.forEach((el) => delete queryCopy[el])
+
+      this.query = this.query.find(queryCopy)
+
+      console.log('queryCopy2:', queryCopy)
+
+      return this
+    }
 }
 
 export default APIFilters;
