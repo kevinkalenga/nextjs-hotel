@@ -1,16 +1,15 @@
+import "bootstrap/dist/css/bootstrap.css"
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import Head from "./head";
+import { GlobalProvider } from "./GlobalProvider";
+import Script from "next/script";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({subsets: ['latin']})
+
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,8 +18,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+    <html lang="en">
+      <Head />
+      <body className={inter.className}>
+        <GlobalProvider>
+            {children}
+        </GlobalProvider>
+
+        <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></Script>
+        <Script src="https://kit.fontawesome.com/871e76e3a2.js"></Script>
+      </body>
     </html>
   );
 }

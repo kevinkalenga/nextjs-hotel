@@ -9,6 +9,7 @@
     "seeder": "tsc seeder/seeder.ts --outDir .temp && node .temp/seeder/seeder.js && rimraf .temp"
   },
   "dependencies": {
+    "bootstrap": "^5.3.8",
     "mongoose": "^9.9.4",
     "next": "16.3.4",
     "next-connect": "^1.0.0",
