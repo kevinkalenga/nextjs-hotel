@@ -1,11 +1,22 @@
 "use client"
 import React, { useEffect } from 'react';
 import RoomItem from './room/RoomItem';
+import { IRoom } from '@/backend/models/room';
+
+interface Props {
+  data: {
+    success: boolean;
+    resPerPage: number;
+    filteredRoomsCount: number;
+    rooms: IRoom[];
+  }
+}
 
 
-const Home = ({data}) => {
 
- 
+const Home = ({data}:Props) => {
+
+ const {rooms, resPerPage, filteredRoomsCount} = data
   return (
     <div>
       <section id="rooms" className="container mt-5">
@@ -15,8 +26,17 @@ const Home = ({data}) => {
         </a>
 
         <div className="row mt-4">
+          {
+            rooms?.length === 0 ? (
+              <div className='alert alert-danger mt-5 w-100'>
+                No Rooms Found
+              </div>
+            ) : (
+                rooms?.map((room) => <RoomItem key={room._id} room={room} />)   
+            )
+          }
          
-          <RoomItem />
+         
       
         </div>
       </section>
