@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import RoomItem from './room/RoomItem';
 
 
-const Home = () => {
+const Home = ({data}) => {
 
  
   return (

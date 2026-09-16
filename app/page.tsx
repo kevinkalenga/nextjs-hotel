@@ -1,21 +1,27 @@
 import Home from "@/components/Home";
 
+
+
+
 const getRooms = async () => {
-  const res = await fetch("http://localhost:3000/api/rooms", {
-    //This will not cache the data 
-    cache:"no-store"
-  });
+ 
+  const res = await fetch(`${ process.env.API_URL}/api/rooms`);
+  if (!res.ok) { 
+     throw new Error("Unable to fetch rooms");
+   }
   return res.json()
 }
 
 
 export default async function HomePage() {
   
-  const rooms = await getRooms();
+  const data = await getRooms();
 
-  console.log(rooms)
+ 
+
+  console.log(data)
   
   return (
-    <Home />
+    <Home data={data} />
   );
 }
