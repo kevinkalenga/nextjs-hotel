@@ -1,7 +1,10 @@
 import Home from "@/components/Home";
 
 const getRooms = async () => {
-  const res = await fetch("http://localhost:3000/api/rooms");
+  const res = await fetch("http://localhost:3000/api/rooms", {
+    //This will not cache the data 
+    cache:"no-store"
+  });
   return res.json()
 }
 
