@@ -23,8 +23,7 @@ export const allRooms =  catchAsyncErrors(async (req: NextRequest) => {
 
   //console.log(queryStr)
   
-  // to get all the rooms
-  const roomsCount: number = await Room.countDocuments()
+  
 
    const apiFilters = new APIFilters(Room, queryStr).search().filter()
 
@@ -38,7 +37,6 @@ export const allRooms =  catchAsyncErrors(async (req: NextRequest) => {
 
    return NextResponse.json({
      success: true,
-     roomsCount,
      filteredRoomsCount,
      resPerPage,
      rooms
