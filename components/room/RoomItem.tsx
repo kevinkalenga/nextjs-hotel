@@ -27,7 +27,7 @@ const RoomItem = ({room}: Props) => {
 
               <div className="card-body d-flex flex-column">
                 <h5 className="card-title">
-                  <a href="/rooms/roomId">{room?.name}</a>
+                  <a href={`/rooms/${room?._id}`}>{room?.name}</a>
                 </h5>
 
                 <div className="mt-auto">

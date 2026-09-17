@@ -1,6 +1,8 @@
 import Home from "@/components/Home";
 
-
+export const metadata = {
+   title: "HomePage - BookIT"
+}
 
 
 const getRooms = async () => {

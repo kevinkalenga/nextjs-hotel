@@ -8,7 +8,7 @@ export default function ErrorPage({
   error: Error & { digest?: string }
   reset: () => void
 }) {
-  console.log(error)
+  console.log(error);
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
