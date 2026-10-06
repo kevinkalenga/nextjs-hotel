@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import RoomItem from './room/RoomItem';
 import { IRoom } from '@/backend/models/room';
 import CustomPagination from './layout/CustomPagination';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 interface Props {
   data: {
@@ -17,14 +19,21 @@ interface Props {
 
 const Home = ({data}:Props) => {
 
- const {rooms, resPerPage, filteredRoomsCount} = data
+ const searchParams = useSearchParams()
+ const location = searchParams.get('location')
+ 
+  const {rooms, resPerPage, filteredRoomsCount} = data
   return (
     <div>
       <section id="rooms" className="container mt-5">
-        <h2 className="mb-3 ml-2 stays-heading">All Rooms</h2>
-        <a href="/search" className="ml-2 back-to-search">
+        <h2 className="mb-3 ml-2 stays-heading">
+          {
+            location ? `${rooms?.length} room(s) found in ${location}`:"All Rooms"
+          }
+        </h2>
+        <Link href="/search" className="ml-2 back-to-search">
           <i className="fa fa-arrow-left"></i> Back to Search
-        </a>
+        </Link>
 
         <div className="row mt-4">
           {

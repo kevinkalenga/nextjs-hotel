@@ -31,7 +31,7 @@ export default async function RoomDetailPage({params}: Props) {
 
  
 
-  console.log(data)
+  //console.log(data)
   
   return (
     <RoomDetails data={data} />

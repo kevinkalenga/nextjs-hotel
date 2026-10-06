@@ -9,32 +9,32 @@ type SearchParams = Promise<{
   [key: string]: string | string[] | undefined;
 }>;
 
-const getRooms = async (searchParams: SearchParams) => {
-  const params = await searchParams;
+  const getRooms = async (searchParams: SearchParams) => {
+    const params = await searchParams;
 
-  const urlParams = new URLSearchParams();
+    const urlParams = new URLSearchParams();
 
-  Object.entries(params).forEach(([key, value]) => {
-    if (typeof value === "string") {
-      urlParams.set(key, value);
+    Object.entries(params).forEach(([key, value]) => {
+      if (typeof value === "string") {
+        urlParams.set(key, value);
+      }
+    });
+
+    const queryString = urlParams.toString();
+
+    const res = await fetch(
+      `${process.env.API_URL}/api/rooms?${queryString}`,
+      {
+        cache: "no-store",
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Unable to fetch rooms");
     }
-  });
 
-  const queryString = urlParams.toString();
-
-  const res = await fetch(
-    `${process.env.API_URL}/api/rooms?${queryString}`,
-    {
-      cache: "no-store",
-    }
-  );
-
-  if (!res.ok) {
-    throw new Error("Unable to fetch rooms");
-  }
-
-  return res.json();
-};
+    return res.json();
+  };
 
 export default async function HomePage({
   searchParams,
